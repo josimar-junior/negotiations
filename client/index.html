@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Negotiations</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body class="container">
+    
+    <h1 class="text-center">Negotiations</h1>
+
+    <form class="form">
+        
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" class="form-control" required autofocus />
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="number" min="1" step="1" id="quantity" class="form-control" value="1" required />
+        </div>
+
+        <div class="form-group">
+            <label for="value">Value</label>
+            <input type="number" id="value" class="form-control" min="0.01" step="0.01" value="0.0" required />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Save</button>
+
+    </form>
+
+    <div class="text-center">
+        <button class="btn btn-primary text-center" type="button" id="btn-import">Import Negotiations</button>
+        <button class="btn btn-primary text-center" id="btn-clear">Clear</button>
+    </div>
+
+    <br><br>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Quantity</th>
+                <th>Value</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+
+        <tfoot>
+
+        </tfoot>
+
+    </table>
+
+<script src="app/domain/negotiation/Negotiation.js"></script>
+<script src="app/controllers/NegotiationController.js"></script>
+<script src="app/app.js"></script>
+</body>
+</html>
