@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,15 @@
     <title>Negotiations</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
+
 <body class="container">
-    
+
     <h1 class="text-center">Negotiations</h1>
 
+    <div id="messageView"></div>
+
     <form class="form">
-        
+
         <div class="form-group">
             <label for="date">Date</label>
             <input type="date" id="date" class="form-control" required autofocus />
@@ -39,13 +43,17 @@
 
     <br><br>
 
-    <div class="negotiations"></div>
+    <div id="negotiations"></div>
 
-<script src="app/domain/negotiation/Negotiation.js"></script>
-<script src="app/controllers/NegotiationController.js"></script>
-<script src="app/ui/converters/DateConverter.js"></script>
-<script src="app/domain/negotiation/Negotiations.js"></script>
-<script src="app/ui/views/NegotiationsView.js"></script>
-<script src="app/app.js"></script>
+    <script src="app/domain/negotiation/Negotiation.js"></script>
+    <script src="app/controllers/NegotiationController.js"></script>
+    <script src="app/ui/converters/DateConverter.js"></script>
+    <script src="app/domain/negotiation/Negotiations.js"></script>
+    <script src="app/ui/views/View.js"></script>
+    <script src="app/ui/views/NegotiationsView.js"></script>
+    <script src="app/ui/models/Message.js"></script>
+    <script src="app/ui/views/MessageView.js"></script>
+    <script src="app/app.js"></script>
 </body>
+
 </html>
