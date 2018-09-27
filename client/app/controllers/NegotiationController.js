@@ -9,24 +9,12 @@ class NegotiationController {
 
         const self = this;
 
-        this._negotiations = new Proxy(new Negotiations(), {
-            get(target, prop, receiver) {
-                if (typeof(target[prop]) == typeof(Function) && ['save', 'clear'].includes(prop)) {
-                    return function() {
-                        console.log(`${prop} fired the trap`);
-                        target[prop].apply(target, arguments);
-                        self._negotiationsView.update(target);
-                    }
-                } else {
-                    return target[prop];
-                }
-            }
-        });
+        this._negotiations = ProxyFactory.create(new Negotiations(), ['save', 'clear'], model => this._negotiationsView.update(model));
 
         this._negotiationsView = new NegotiationsView('#negotiations');
         this._negotiationsView.update(this._negotiations);
 
-        this._message = new Message();
+        this._message = ProxyFactory.create(new Message(), ['text'], model => this._messageView.update(model));
         this._messageView = new MessageView('#messageView');
         this._messageView.update(this._message);
     }
@@ -35,7 +23,6 @@ class NegotiationController {
         event.preventDefault();
         this._negotiations.save(this._createNegotiation());
         this._message.text = 'Negotiation saved successfully';
-        this._messageView.update(this._message);
         this._cleanForm();
     }
 
@@ -55,6 +42,5 @@ class NegotiationController {
     clear() {
         this._negotiations.clear();
         this._message.text = 'Negotiations successfully deleted';
-        this._messageView.update(this._message);
     }
 }
