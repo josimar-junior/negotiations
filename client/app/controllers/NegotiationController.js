@@ -10,6 +10,8 @@ class NegotiationController {
         this._negotiations = new Bind(new Negotiations(), new NegotiationsView('#negotiations'), 'save', 'clear');
 
         this._message = new Bind(new Message(), new MessageView('#messageView'), 'text');
+
+        this._negotiationService = new NegotiantionService();
     }
 
     save(event) {
@@ -21,7 +23,7 @@ class NegotiationController {
         } catch (error) {
             console.log(error);
             console.log(error.stack);
-            if(error instanceof InvalidDateException) {
+            if (error instanceof InvalidDateException) {
                 this._message.text = error.message;
             } else {
                 this._message.text = 'Error saving negotiation';
@@ -45,5 +47,19 @@ class NegotiationController {
     clear() {
         this._negotiations.clear();
         this._message.text = 'Negotiations successfully deleted';
+    }
+
+    importNegotiations() {
+        this._negotiationService.getWeekNegotiations((error, negotiations) => {
+            if (error) {
+                this._message.text = "Couldn't get week negotiations";
+                return;
+            }
+
+            negotiations.forEach(negotiation =>
+                this._negotiations.save(negotiation));
+
+            this._message.text = "Successfully imported negotiations";
+        });
     }
 }
