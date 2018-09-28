@@ -9,9 +9,9 @@ class DateConverter {
     }
 
     static toDate(text) {
-        if(!/^\d{4}-\d{2}-\d{2}$/.test(text))
-            throw new Error('Date must be in the format aaaa-mm-dd'); 
+        if(!/\d{2}\/\d{2}\/\d{4}/.test(text))
+            throw new InvalidDateException(); 
 
-        return new Date(...text.split('-').map((item, index) => item - index % 2));
+        return new Date(...text.split('/').reverse().map((item, index) => item - index % 2));
     }
 }

@@ -7,23 +7,26 @@ class NegotiationController {
         this._inputQuantity = $('#quantity');
         this._inputValue = $('#value');
 
-        const self = this;
+        this._negotiations = new Bind(new Negotiations(), new NegotiationsView('#negotiations'), 'save', 'clear');
 
-        this._negotiations = ProxyFactory.create(new Negotiations(), ['save', 'clear'], model => this._negotiationsView.update(model));
-
-        this._negotiationsView = new NegotiationsView('#negotiations');
-        this._negotiationsView.update(this._negotiations);
-
-        this._message = ProxyFactory.create(new Message(), ['text'], model => this._messageView.update(model));
-        this._messageView = new MessageView('#messageView');
-        this._messageView.update(this._message);
+        this._message = new Bind(new Message(), new MessageView('#messageView'), 'text');
     }
 
     save(event) {
-        event.preventDefault();
-        this._negotiations.save(this._createNegotiation());
-        this._message.text = 'Negotiation saved successfully';
-        this._cleanForm();
+        try {
+            event.preventDefault();
+            this._negotiations.save(this._createNegotiation());
+            this._message.text = 'Negotiation saved successfully';
+            this._cleanForm();
+        } catch (error) {
+            console.log(error);
+            console.log(error.stack);
+            if(error instanceof InvalidDateException) {
+                this._message.text = error.message;
+            } else {
+                this._message.text = 'Error saving negotiation';
+            }
+        }
     }
 
     _createNegotiation() {
