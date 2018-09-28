@@ -50,16 +50,11 @@ class NegotiationController {
     }
 
     importNegotiations() {
-        this._negotiationService.getWeekNegotiations((error, negotiations) => {
-            if (error) {
-                this._message.text = "Couldn't get week negotiations";
-                return;
-            }
-
-            negotiations.forEach(negotiation =>
-                this._negotiations.save(negotiation));
-
-            this._message.text = "Successfully imported negotiations";
-        });
+        this._negotiationService.getNegotiationsForThePeriod()
+        .then(negotiations => {
+            negotiations.forEach(negotiation => this._negotiations.save(negotiation));
+            this._message.text = 'Imported negotiations of the period successfully';
+        }).catch(error => this._message.text = error);
     }
+
 }
