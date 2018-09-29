@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Using IndexedDB</title>
+</head>
+
+<body>
+
+    <script>
+
+        let connection = null;
+
+        const openRequest = indexedDB.open('js', 2);
+
+        openRequest.onupgradeneeded = e => {
+            console.log('Create or update database existing');
+            connection = e.target.result;
+
+            if (connection.objectStoreNames.contains('negotiations'))
+                connection.deleteObjectStore('negotiations');
+
+            connection.createObjectStore('negotiations', {
+                autoIncrement: true
+            });
+        };
+
+        openRequest.onsuccess = e => {
+            console.log('Connection successfully obtained');
+            connection = e.target.result;
+        };
+
+        openRequest.onerror = e => {
+            console.log(e.target.error);
+        };
+
+        function save() {
+            const negotiation = new Negotiation(new Date(), 5, 100);
+
+            const request = connection
+                .transaction(['negotiations'], 'readwrite')
+                .objectStore('negotiations')
+                .add(negotiation);
+
+            request.onsuccess = e => console.log('Negotiation saved successfully');
+
+            request.onerror = e => console.log("Couldn't save negotiation");
+        }
+
+        function listAll() {
+
+            const negotiations = [];
+
+            const cursor = connection
+                .transaction(['negotiations'], 'readwrite')
+                .objectStore('negotiations')
+                .openCursor();
+
+            cursor.onsuccess = e => {
+                const current = e.target.result;
+                if (current) {
+                    const negotiation = new Negotiation(current.value._date, current.value._quantity, current.value._value);
+                    negotiations.push(negotiation);
+                    current.continue();
+                } else {
+                    console.log(negotiations);
+                }
+            }
+
+            cursor.onerror = e => console.log(e.target.error.name);
+        }
+    </script>
+    <script src="app/domain/negotiation/Negotiation.js"></script>
+</body>
+
+</html>
