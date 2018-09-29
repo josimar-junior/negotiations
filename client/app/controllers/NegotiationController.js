@@ -12,14 +12,33 @@ class NegotiationController {
         this._message = new Bind(new Message(), new MessageView('#messageView'), 'text');
 
         this._negotiationService = new NegotiantionService();
+
+        this._init();
+    }
+
+    _init() {
+            getNegotiationDao()
+            .then(dao => dao.listAll())
+            .then(negotiations =>
+                negotiations.forEach(negotiation =>
+                    this._negotiations.save(negotiation)))
+            .catch(error => this._message.text = error);
     }
 
     save(event) {
         try {
             event.preventDefault();
-            this._negotiations.save(this._createNegotiation());
-            this._message.text = 'Negotiation saved successfully';
-            this._cleanForm();
+
+            const negotiation = this._createNegotiation();
+
+                getNegotiationDao()
+                .then(dao => dao.save(negotiation))
+                .then(() => {
+                    this._negotiations.save(this._createNegotiation());
+                    this._message.text = 'Negotiation saved successfully';
+                    this._cleanForm();
+                }).catch(error => this._message.text = error);
+
         } catch (error) {
             console.log(error);
             console.log(error.stack);
@@ -45,8 +64,12 @@ class NegotiationController {
     }
 
     clear() {
-        this._negotiations.clear();
-        this._message.text = 'Negotiations successfully deleted';
+            getNegotiationDao()
+            .then(dao => dao.clear())
+            .then(() => {
+                this._negotiations.clear();
+                this._message.text = 'Negotiations successfully deleted';
+            }).catch(error => this._message.text = error);
     }
 
     importNegotiations() {

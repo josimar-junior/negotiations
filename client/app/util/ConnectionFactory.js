@@ -16,7 +16,7 @@ const ConnectionFactory = (() => {
                 if (connection)
                     return resolve(connection);
 
-                const openRequest = indexedDB.open('js', 2);
+                const openRequest = indexedDB.open('js', 1);
 
                 openRequest.onupgradeneeded = e => {
                     ConnectionFactory._createStores(e.target.result);
