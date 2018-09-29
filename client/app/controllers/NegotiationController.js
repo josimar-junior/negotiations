@@ -50,11 +50,15 @@ class NegotiationController {
     }
 
     importNegotiations() {
+
         this._negotiationService.getNegotiationsForThePeriod()
-        .then(negotiations => {
-            negotiations.forEach(negotiation => this._negotiations.save(negotiation));
-            this._message.text = 'Imported negotiations of the period successfully';
-        }).catch(error => this._message.text = error);
+            .then(negotiations => {
+                negotiations.filter(newNegotiation => !this._negotiations.toArray().some(existingNegotiation =>
+                    newNegotiation.equals(existingNegotiation)
+                )).forEach(negotiation => this._negotiations.save(negotiation));
+
+                this._message.text = 'Negotiations imported of the period successfully';
+            }).catch(error => this._message.text = error);
     }
 
 }

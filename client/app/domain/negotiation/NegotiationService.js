@@ -6,23 +6,23 @@ class NegotiantionService {
 
     getWeekNegotiations() {
         return this._httpService.get('negotiations/week')
-            .then(datas => {
-                return datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value));
-            }, error => { throw new Error("Couldn't get week negotiations") })
+            .then(datas =>
+                datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value))
+                , error => { throw new Error("Couldn't get week negotiations") })
     }
 
     getPreviousWeekNegotiations() {
         return this._httpService.get('negotiations/previous')
-            .then(datas => {
-                return datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value));
-            }, error => { throw new Error("Couldn't get previous week negotiations") });
+            .then(datas =>
+                datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value))
+                , error => { throw new Error("Couldn't get previous week negotiations") });
     }
 
     getDelayedWeekNegotiations() {
         return this._httpService.get('negotiations/delayed')
-            .then(datas => {
-                return datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value));
-            }, error => { throw new Error("Couldn't get delayed week negotiations") });
+            .then(datas =>
+                datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value))
+                , error => { throw new Error("Couldn't get delayed week negotiations") });
     }
 
     getNegotiationsForThePeriod() {
@@ -31,10 +31,10 @@ class NegotiantionService {
             this.getPreviousWeekNegotiations(),
             this.getDelayedWeekNegotiations()
         ])
-            .then(period => {
-                return period.reduce((newArray, item) => newArray.concat(item), []);
-            })
-            .catch(error => {
+            .then(period =>
+                period.reduce((newArray, item) => newArray.concat(item), [])
+                    .sort((object1, object2) => object2.date.getTime() - object1.date.getTime())
+            ).catch(error => {
                 console.log(error);
                 throw new Error("Couldn't get negotiations for the period");
             });
