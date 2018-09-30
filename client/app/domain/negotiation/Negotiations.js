@@ -1,23 +1,35 @@
-class Negotiations {
+System.register([], function (_export, _context) {
+    "use strict";
 
-    constructor() {
-        this._negotiations = [];
-        Object.freeze(this);
-    }
+    return {
+        setters: [],
+        execute: function () {
+            class Negotiations {
 
-    save(negotiation) {
-        this._negotiations.push(negotiation);
-    }
+                constructor() {
+                    this._negotiations = [];
+                    Object.freeze(this);
+                }
 
-    toArray() {
-        return [].concat(this._negotiations);
-    }
+                save(negotiation) {
+                    this._negotiations.push(negotiation);
+                }
 
-    get totalVolume() {
-        return this._negotiations.reduce((total, negotiation) => total + negotiation.volume, 0);
-    }
+                toArray() {
+                    return [].concat(this._negotiations);
+                }
 
-    clear() {
-        this._negotiations.length = 0;
-    }
-}
+                get totalVolume() {
+                    return this._negotiations.reduce((total, negotiation) => total + negotiation.volume, 0);
+                }
+
+                clear() {
+                    this._negotiations.length = 0;
+                }
+            }
+
+            _export("Negotiations", Negotiations);
+        }
+    };
+});
+//# sourceMappingURL=Negotiations.js.map
