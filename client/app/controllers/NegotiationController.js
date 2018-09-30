@@ -1,28 +1,51 @@
-System.register(['../domain/negotiation/Negotiations.js', '../domain/negotiation/NegotiationService.js', '../ui/views/NegotiationsView.js', '../ui/views/MessageView.js', '../ui/models/Message.js', '../util/DaoFactory.js', '../ui/converters/InvalidDateException.js', '../ui/converters/DateConverter.js', '../domain/negotiation/Negotiation.js', '../util/Bind.js'], function (_export, _context) {
+System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], function (_export, _context) {
     "use strict";
 
-    var Negotiations, NegotiantionService, NegotiationsView, MessageView, Message, getNegotiationDao, InvalidDateException, DateConverter, Negotiation, Bind;
+    var Negotiations, NegotiantionService, Negotiation, NegotiationsView, MessageView, Message, InvalidDateException, DateConverter, getNegotiationDao, Bind;
+
+    function _asyncToGenerator(fn) {
+        return function () {
+            var gen = fn.apply(this, arguments);
+            return new Promise(function (resolve, reject) {
+                function step(key, arg) {
+                    try {
+                        var info = gen[key](arg);
+                        var value = info.value;
+                    } catch (error) {
+                        reject(error);
+                        return;
+                    }
+
+                    if (info.done) {
+                        resolve(value);
+                    } else {
+                        return Promise.resolve(value).then(function (value) {
+                            step("next", value);
+                        }, function (err) {
+                            step("throw", err);
+                        });
+                    }
+                }
+
+                return step("next");
+            });
+        };
+    }
+
     return {
-        setters: [function (_domainNegotiationNegotiationsJs) {
-            Negotiations = _domainNegotiationNegotiationsJs.Negotiations;
-        }, function (_domainNegotiationNegotiationServiceJs) {
-            NegotiantionService = _domainNegotiationNegotiationServiceJs.NegotiantionService;
-        }, function (_uiViewsNegotiationsViewJs) {
-            NegotiationsView = _uiViewsNegotiationsViewJs.NegotiationsView;
-        }, function (_uiViewsMessageViewJs) {
-            MessageView = _uiViewsMessageViewJs.MessageView;
-        }, function (_uiModelsMessageJs) {
-            Message = _uiModelsMessageJs.Message;
-        }, function (_utilDaoFactoryJs) {
-            getNegotiationDao = _utilDaoFactoryJs.getNegotiationDao;
-        }, function (_uiConvertersInvalidDateExceptionJs) {
-            InvalidDateException = _uiConvertersInvalidDateExceptionJs.InvalidDateException;
-        }, function (_uiConvertersDateConverterJs) {
-            DateConverter = _uiConvertersDateConverterJs.DateConverter;
-        }, function (_domainNegotiationNegotiationJs) {
-            Negotiation = _domainNegotiationNegotiationJs.Negotiation;
-        }, function (_utilBindJs) {
-            Bind = _utilBindJs.Bind;
+        setters: [function (_domainIndexJs) {
+            Negotiations = _domainIndexJs.Negotiations;
+            NegotiantionService = _domainIndexJs.NegotiantionService;
+            Negotiation = _domainIndexJs.Negotiation;
+        }, function (_uiIndexJs) {
+            NegotiationsView = _uiIndexJs.NegotiationsView;
+            MessageView = _uiIndexJs.MessageView;
+            Message = _uiIndexJs.Message;
+            InvalidDateException = _uiIndexJs.InvalidDateException;
+            DateConverter = _uiIndexJs.DateConverter;
+        }, function (_utilIndexJs) {
+            getNegotiationDao = _utilIndexJs.getNegotiationDao;
+            Bind = _utilIndexJs.Bind;
         }],
         execute: function () {
             class NegotiationController {
@@ -44,29 +67,45 @@ System.register(['../domain/negotiation/Negotiations.js', '../domain/negotiation
                 }
 
                 _init() {
-                    getNegotiationDao().then(dao => dao.listAll()).then(negotiations => negotiations.forEach(negotiation => this._negotiations.save(negotiation))).catch(error => this._message.text = error);
+                    var _this = this;
+
+                    return _asyncToGenerator(function* () {
+                        try {
+                            const dao = yield getNegotiationDao();
+                            const negotiations = yield dao.listAll();
+                            negotiations.forEach(function (negotiation) {
+                                return _this._negotiations.save(negotiation);
+                            });
+                        } catch (error) {
+                            _this.message.text = error.message;
+                        }
+                    })();
                 }
 
                 save(event) {
-                    try {
-                        event.preventDefault();
+                    var _this2 = this;
 
-                        const negotiation = this._createNegotiation();
+                    return _asyncToGenerator(function* () {
+                        try {
+                            event.preventDefault();
 
-                        getNegotiationDao().then(dao => dao.save(negotiation)).then(() => {
-                            this._negotiations.save(this._createNegotiation());
-                            this._message.text = 'Negotiation saved successfully';
-                            this._cleanForm();
-                        }).catch(error => this._message.text = error);
-                    } catch (error) {
-                        console.log(error);
-                        console.log(error.stack);
-                        if (error instanceof InvalidDateException) {
-                            this._message.text = error.message;
-                        } else {
-                            this._message.text = 'Error saving negotiation';
+                            const negotiation = _this2._createNegotiation();
+
+                            const dao = yield getNegotiationDao();
+                            yield dao.save(negotiation);
+                            _this2._negotiations.save(_this2._createNegotiation());
+                            _this2._message.text = 'Negotiation saved successfully';
+                            _this2._cleanForm();
+                        } catch (error) {
+                            console.log(error);
+                            console.log(error.stack);
+                            if (error instanceof InvalidDateException) {
+                                _this2._message.text = error.message;
+                            } else {
+                                _this2._message.text = 'Error saving negotiation';
+                            }
                         }
-                    }
+                    })();
                 }
 
                 _createNegotiation() {
@@ -81,19 +120,41 @@ System.register(['../domain/negotiation/Negotiations.js', '../domain/negotiation
                 }
 
                 clear() {
-                    getNegotiationDao().then(dao => dao.clear()).then(() => {
-                        this._negotiations.clear();
-                        this._message.text = 'Negotiations successfully deleted';
-                    }).catch(error => this._message.text = error);
+                    var _this3 = this;
+
+                    return _asyncToGenerator(function* () {
+                        try {
+                            const dao = yield getNegotiationDao();
+                            yield dao.clear();
+                            _this3._negotiations.clear();
+                            _this3._message.text = 'Negotiations successfully deleted';
+                        } catch (error) {
+                            _this3._message.text = error.message;
+                        }
+                    })();
                 }
 
                 importNegotiations() {
+                    var _this4 = this;
 
-                    this._negotiationService.getNegotiationsForThePeriod().then(negotiations => {
-                        negotiations.filter(newNegotiation => !this._negotiations.toArray().some(existingNegotiation => newNegotiation.equals(existingNegotiation))).forEach(negotiation => this._negotiations.save(negotiation));
+                    return _asyncToGenerator(function* () {
+                        try {
+                            const negotiations = yield _this4._negotiationService.getNegotiationsForThePeriod();
+                            console.log(negotiations);
+                            negotiations.filter(function (newNegotiation) {
+                                return !_this4._negotiations.toArray().some(function (existingNegotiation) {
+                                    return newNegotiation.equals(existingNegotiation);
+                                });
+                            }).forEach(function (negotiation) {
+                                return _this4._negotiations.save(negotiation);
+                            });
 
-                        this._message.text = 'Negotiations imported of the period successfully';
-                    }).catch(error => this._message.text = error);
+                            _this4._message.text = 'Negotiations imported of the period successfully';
+                        } catch (error) {
+                            console.log(error);
+                            _this4._message.text = error.message;
+                        }
+                    })();
                 }
 
             }

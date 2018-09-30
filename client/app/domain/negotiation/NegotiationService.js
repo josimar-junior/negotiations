@@ -2,6 +2,36 @@ System.register(['../../util/HttpService.js', './Negotiation.js'], function (_ex
     "use strict";
 
     var HttpService, Negotiation;
+
+    function _asyncToGenerator(fn) {
+        return function () {
+            var gen = fn.apply(this, arguments);
+            return new Promise(function (resolve, reject) {
+                function step(key, arg) {
+                    try {
+                        var info = gen[key](arg);
+                        var value = info.value;
+                    } catch (error) {
+                        reject(error);
+                        return;
+                    }
+
+                    if (info.done) {
+                        resolve(value);
+                    } else {
+                        return Promise.resolve(value).then(function (value) {
+                            step("next", value);
+                        }, function (err) {
+                            step("throw", err);
+                        });
+                    }
+                }
+
+                return step("next");
+            });
+        };
+    }
+
     return {
         setters: [function (_utilHttpServiceJs) {
             HttpService = _utilHttpServiceJs.HttpService;
@@ -34,10 +64,21 @@ System.register(['../../util/HttpService.js', './Negotiation.js'], function (_ex
                 }
 
                 getNegotiationsForThePeriod() {
-                    return Promise.all([this.getWeekNegotiations(), this.getPreviousWeekNegotiations(), this.getDelayedWeekNegotiations()]).then(period => period.reduce((newArray, item) => newArray.concat(item), []).sort((object1, object2) => object2.date.getTime() - object1.date.getTime())).catch(error => {
-                        console.log(error);
-                        throw new Error("Couldn't get negotiations for the period");
-                    });
+                    var _this = this;
+
+                    return _asyncToGenerator(function* () {
+                        try {
+                            let period = yield Promise.all([_this.getWeekNegotiations(), _this.getPreviousWeekNegotiations(), _this.getDelayedWeekNegotiations()]);
+                            return period.reduce(function (newArray, item) {
+                                return newArray.concat(item);
+                            }, []).sort(function (object1, object2) {
+                                return object2.date.getTime() - object1.date.getTime();
+                            });
+                        } catch (error) {
+                            console.log(err);
+                            throw new Error("Couldn't get negotiations for the period");
+                        }
+                    })();
                 }
             }
 
