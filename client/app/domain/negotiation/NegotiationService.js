@@ -1,7 +1,7 @@
-System.register(['../../util/HttpService.js', './Negotiation.js'], function (_export, _context) {
+System.register(['../../util/HttpService.js', './Negotiation.js', '../../util/ApplicationException.js'], function (_export, _context) {
     "use strict";
 
-    var HttpService, Negotiation;
+    var HttpService, Negotiation, ApplicationException;
 
     function _asyncToGenerator(fn) {
         return function () {
@@ -37,6 +37,8 @@ System.register(['../../util/HttpService.js', './Negotiation.js'], function (_ex
             HttpService = _utilHttpServiceJs.HttpService;
         }, function (_NegotiationJs) {
             Negotiation = _NegotiationJs.Negotiation;
+        }, function (_utilApplicationExceptionJs) {
+            ApplicationException = _utilApplicationExceptionJs.ApplicationException;
         }],
         execute: function () {
             class NegotiantionService {
@@ -47,19 +49,19 @@ System.register(['../../util/HttpService.js', './Negotiation.js'], function (_ex
 
                 getWeekNegotiations() {
                     return this._httpService.get('negotiations/week').then(datas => datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value)), error => {
-                        throw new Error("Couldn't get week negotiations");
+                        throw new ApplicationException("Couldn't get week negotiations");
                     });
                 }
 
                 getPreviousWeekNegotiations() {
                     return this._httpService.get('negotiations/previous').then(datas => datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value)), error => {
-                        throw new Error("Couldn't get previous week negotiations");
+                        throw new ApplicationException("Couldn't get previous week negotiations");
                     });
                 }
 
                 getDelayedWeekNegotiations() {
                     return this._httpService.get('negotiations/delayed').then(datas => datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value)), error => {
-                        throw new Error("Couldn't get delayed week negotiations");
+                        throw new ApplicationException("Couldn't get delayed week negotiations");
                     });
                 }
 
@@ -76,7 +78,7 @@ System.register(['../../util/HttpService.js', './Negotiation.js'], function (_ex
                             });
                         } catch (error) {
                             console.log(err);
-                            throw new Error("Couldn't get negotiations for the period");
+                            throw new ApplicationException("Couldn't get negotiations for the period");
                         }
                     })();
                 }

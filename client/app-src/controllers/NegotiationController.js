@@ -74,7 +74,6 @@ export class NegotiationController {
     async importNegotiations() {
         try {
             const negotiations = await this._negotiationService.getNegotiationsForThePeriod();
-            console.log(negotiations);
             negotiations.filter(newNegotiation => !this._negotiations.toArray().some(existingNegotiation =>
                 newNegotiation.equals(existingNegotiation)))
                 .forEach(negotiation => this._negotiations.save(negotiation));

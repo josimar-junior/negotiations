@@ -6,10 +6,8 @@ export class ApplicationException extends Error {
     }
 }
 
-const exception = ApplicationException;
-
 export function isApplicationException(error) {
-    return error instanceof exception || Object.getPrototypeOf(error) instanceof exception;
+    return error instanceof ApplicationException || Object.getPrototypeOf(error) instanceof ApplicationException;
 }
 
 export function getExceptionMessage(error) {

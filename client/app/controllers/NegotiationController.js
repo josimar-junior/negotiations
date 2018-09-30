@@ -1,7 +1,7 @@
 System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], function (_export, _context) {
     "use strict";
 
-    var Negotiations, NegotiantionService, Negotiation, NegotiationsView, MessageView, Message, InvalidDateException, DateConverter, getNegotiationDao, Bind;
+    var Negotiations, NegotiantionService, Negotiation, NegotiationsView, MessageView, Message, InvalidDateException, DateConverter, getNegotiationDao, Bind, getExceptionMessage;
 
     function _asyncToGenerator(fn) {
         return function () {
@@ -46,6 +46,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
         }, function (_utilIndexJs) {
             getNegotiationDao = _utilIndexJs.getNegotiationDao;
             Bind = _utilIndexJs.Bind;
+            getExceptionMessage = _utilIndexJs.getExceptionMessage;
         }],
         execute: function () {
             class NegotiationController {
@@ -77,7 +78,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
                                 return _this._negotiations.save(negotiation);
                             });
                         } catch (error) {
-                            _this.message.text = error.message;
+                            _this.message.text = getExceptionMessage(error);
                         }
                     })();
                 }
@@ -97,13 +98,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
                             _this2._message.text = 'Negotiation saved successfully';
                             _this2._cleanForm();
                         } catch (error) {
-                            console.log(error);
-                            console.log(error.stack);
-                            if (error instanceof InvalidDateException) {
-                                _this2._message.text = error.message;
-                            } else {
-                                _this2._message.text = 'Error saving negotiation';
-                            }
+                            _this2.message.text = getExceptionMessage(error);
                         }
                     })();
                 }
@@ -129,7 +124,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
                             _this3._negotiations.clear();
                             _this3._message.text = 'Negotiations successfully deleted';
                         } catch (error) {
-                            _this3._message.text = error.message;
+                            _this3.message.text = getExceptionMessage(error);
                         }
                     })();
                 }
@@ -140,7 +135,6 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
                     return _asyncToGenerator(function* () {
                         try {
                             const negotiations = yield _this4._negotiationService.getNegotiationsForThePeriod();
-                            console.log(negotiations);
                             negotiations.filter(function (newNegotiation) {
                                 return !_this4._negotiations.toArray().some(function (existingNegotiation) {
                                     return newNegotiation.equals(existingNegotiation);
@@ -151,8 +145,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
 
                             _this4._message.text = 'Negotiations imported of the period successfully';
                         } catch (error) {
-                            console.log(error);
-                            _this4._message.text = error.message;
+                            _this4.message.text = getExceptionMessage(error);
                         }
                     })();
                 }
