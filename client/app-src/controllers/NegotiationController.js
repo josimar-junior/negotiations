@@ -1,15 +1,13 @@
 import { Negotiations, NegotiantionService, Negotiation } from '../domain/index.js';
-import { NegotiationsView, MessageView, Message, InvalidDateException, DateConverter } from '../ui/index.js';
-import { getNegotiationDao, Bind, getExceptionMessage } from '../util/index.js';
+import { NegotiationsView, MessageView, Message, DateConverter } from '../ui/index.js';
+import { getNegotiationDao, Bind, getExceptionMessage, debounce, controller } from '../util/index.js';
 
+@controller('#date', '#quantity', '#value')
 export class NegotiationController {
 
-    constructor() {
-        const $ = document.querySelector.bind(document);
+    constructor(_inputDate, _inputQuantity, _inputValue) {
 
-        this._inputDate = $('#date');
-        this._inputQuantity = $('#quantity');
-        this._inputValue = $('#value');
+        Object.assign(this, {_inputDate, _inputQuantity, _inputValue});
 
         this._negotiations = new Bind(new Negotiations(), new NegotiationsView('#negotiations'), 'save', 'clear');
 
@@ -71,6 +69,7 @@ export class NegotiationController {
         }
     }
 
+    @debounce()
     async importNegotiations() {
         try {
             const negotiations = await this._negotiationService.getNegotiationsForThePeriod();

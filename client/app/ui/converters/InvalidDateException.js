@@ -7,12 +7,12 @@ System.register(['../../util/ApplicationException.js'], function (_export, _cont
             ApplicationException = _utilApplicationExceptionJs.ApplicationException;
         }],
         execute: function () {
-            class InvalidDateException extends ApplicationException {
+            let InvalidDateException = class InvalidDateException extends ApplicationException {
 
                 constructor() {
                     super('Date must be in the format dd/mm/yyyy');
                 }
-            }
+            };
 
             _export('InvalidDateException', InvalidDateException);
         }

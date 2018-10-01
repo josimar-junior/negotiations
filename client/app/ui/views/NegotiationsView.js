@@ -9,7 +9,7 @@ System.register(['./View.js', '../converters/DateConverter.js'], function (_expo
             DateConverter = _convertersDateConverterJs.DateConverter;
         }],
         execute: function () {
-            class NegotiationsView extends View {
+            let NegotiationsView = class NegotiationsView extends View {
 
                 template(model) {
                     return `<table class="table table-hover table-bordered">
@@ -42,7 +42,7 @@ System.register(['./View.js', '../converters/DateConverter.js'], function (_expo
 
                 </table>`;
                 }
-            }
+            };
 
             _export('NegotiationsView', NegotiationsView);
         }

@@ -4,7 +4,7 @@ System.register([], function (_export, _context) {
     return {
         setters: [],
         execute: function () {
-            class Negotiation {
+            let Negotiation = class Negotiation {
 
                 constructor(_date, _quantity, _value) {
                     Object.assign(this, { _quantity, _value });
@@ -31,7 +31,7 @@ System.register([], function (_export, _context) {
                 equals(negotiation) {
                     return JSON.stringify(this) == JSON.stringify(negotiation);
                 }
-            }
+            };
 
             _export("Negotiation", Negotiation);
         }

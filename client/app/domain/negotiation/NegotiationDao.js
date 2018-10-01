@@ -7,7 +7,7 @@ System.register(['./Negotiation.js'], function (_export, _context) {
             Negotiation = _NegotiationJs.Negotiation;
         }],
         execute: function () {
-            class NegotiationDao {
+            let NegotiationDao = class NegotiationDao {
 
                 constructor(connection) {
                     this._connection = connection;
@@ -61,7 +61,7 @@ System.register(['./Negotiation.js'], function (_export, _context) {
                         };
                     });
                 }
-            }
+            };
 
             _export('NegotiationDao', NegotiationDao);
         }

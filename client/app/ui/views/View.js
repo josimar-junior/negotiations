@@ -4,7 +4,7 @@ System.register([], function (_export, _context) {
     return {
         setters: [],
         execute: function () {
-            class View {
+            let View = class View {
 
                 constructor(selector) {
                     this._element = document.querySelector(selector);
@@ -17,7 +17,7 @@ System.register([], function (_export, _context) {
                 template(model) {
                     throw new Error('You need to implement the template method');
                 }
-            }
+            };
 
             _export('View', View);
         }

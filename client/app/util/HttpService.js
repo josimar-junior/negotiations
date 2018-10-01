@@ -7,7 +7,7 @@ System.register(['./../domain/negotiation/Negotiation.js'], function (_export, _
             Negotiation = _domainNegotiationNegotiationJs.Negotiation;
         }],
         execute: function () {
-            class HttpService {
+            let HttpService = class HttpService {
                 get(url) {
                     return new Promise((resolve, reject) => {
                         const xhr = new XMLHttpRequest();
@@ -28,7 +28,7 @@ System.register(['./../domain/negotiation/Negotiation.js'], function (_export, _
                         xhr.send();
                     });
                 }
-            }
+            };
 
             _export('HttpService', HttpService);
         }
