@@ -106,7 +106,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
                                 return _this._negotiations.save(negotiation);
                             });
                         } catch (error) {
-                            _this.message.text = getExceptionMessage(error);
+                            _this._message.text = getExceptionMessage(error);
                         }
                     })();
                 }
@@ -126,7 +126,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
                             _this2._message.text = 'Negotiation saved successfully';
                             _this2._cleanForm();
                         } catch (error) {
-                            _this2.message.text = getExceptionMessage(error);
+                            _this2._message.text = getExceptionMessage(error);
                         }
                     })();
                 }
@@ -152,7 +152,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
                             _this3._negotiations.clear();
                             _this3._message.text = 'Negotiations successfully deleted';
                         } catch (error) {
-                            _this3.message.text = getExceptionMessage(error);
+                            _this3._message.text = getExceptionMessage(error);
                         }
                     })();
                 }
@@ -173,7 +173,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
 
                             _this4._message.text = 'Negotiations imported of the period successfully';
                         } catch (error) {
-                            _this4.message.text = getExceptionMessage(error);
+                            _this4._message.text = getExceptionMessage(error);
                         }
                     })();
                 }

@@ -24,7 +24,7 @@ export class NegotiationController {
             const negotiations = await dao.listAll();
             negotiations.forEach(negotiation => this._negotiations.save(negotiation));
         } catch (error) {
-            this.message.text = getExceptionMessage(error);
+            this._message.text = getExceptionMessage(error);
         }
     }
 
@@ -41,7 +41,7 @@ export class NegotiationController {
             this._cleanForm();
 
         } catch (error) {
-            this.message.text = getExceptionMessage(error);
+            this._message.text = getExceptionMessage(error);
         }
     }
 
@@ -65,7 +65,7 @@ export class NegotiationController {
             this._negotiations.clear();
             this._message.text = 'Negotiations successfully deleted';
         } catch (error) {
-            this.message.text = getExceptionMessage(error);
+            this._message.text = getExceptionMessage(error);
         }
     }
 
@@ -79,7 +79,7 @@ export class NegotiationController {
 
             this._message.text = 'Negotiations imported of the period successfully';
         } catch (error) {
-            this.message.text = getExceptionMessage(error);
+            this._message.text = getExceptionMessage(error);
         }
     }
 
