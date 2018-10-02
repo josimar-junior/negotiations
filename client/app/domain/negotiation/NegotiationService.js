@@ -47,7 +47,7 @@ System.register(['../../util/HttpService.js', './Negotiation.js', '../../util/Ap
                 }
 
                 getWeekNegotiations() {
-                    return this._httpService.get('negotiations/weeks').then(datas => datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value)), error => {
+                    return this._httpService.get('negotiations/week').then(datas => datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value)), error => {
                         throw new ApplicationException("Couldn't get week negotiations");
                     });
                 }
