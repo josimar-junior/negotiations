@@ -1,6 +1,6 @@
 import { Negotiations, NegotiantionService, Negotiation } from '../domain/index.js';
 import { NegotiationsView, MessageView, Message, DateConverter } from '../ui/index.js';
-import { getNegotiationDao, Bind, getExceptionMessage, debounce, controller } from '../util/index.js';
+import { getNegotiationDao, Bind, getExceptionMessage, debounce, controller, bindEvent } from '../util/index.js';
 
 @controller('#date', '#quantity', '#value')
 export class NegotiationController {
@@ -28,6 +28,8 @@ export class NegotiationController {
         }
     }
 
+    @bindEvent('submit', '.form')
+    @debounce()
     async save(event) {
         try {
             event.preventDefault();
@@ -58,6 +60,7 @@ export class NegotiationController {
         this._inputDate.focus();
     }
 
+    @bindEvent('click', '#btn-clear')
     async clear() {
         try {
             const dao = await getNegotiationDao();
@@ -69,6 +72,7 @@ export class NegotiationController {
         }
     }
 
+    @bindEvent('click', '#btn-import')
     @debounce()
     async importNegotiations() {
         try {

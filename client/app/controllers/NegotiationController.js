@@ -1,7 +1,7 @@
 System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], function (_export, _context) {
     "use strict";
 
-    var Negotiations, NegotiantionService, Negotiation, NegotiationsView, MessageView, Message, DateConverter, getNegotiationDao, Bind, getExceptionMessage, debounce, controller;
+    var Negotiations, NegotiantionService, Negotiation, NegotiationsView, MessageView, Message, DateConverter, getNegotiationDao, Bind, getExceptionMessage, debounce, controller, bindEvent;
     return {
         setters: [function (_domainIndexJs) {
             Negotiations = _domainIndexJs.Negotiations;
@@ -18,6 +18,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
             getExceptionMessage = _utilIndexJs.getExceptionMessage;
             debounce = _utilIndexJs.debounce;
             controller = _utilIndexJs.controller;
+            bindEvent = _utilIndexJs.bindEvent;
         }],
         execute: function () {
             function _asyncToGenerator(fn) {
@@ -78,9 +79,9 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
                 return desc;
             }
 
-            var _dec, _dec2, _class, _desc, _value, _class2;
+            var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _class, _desc, _value, _class2;
 
-            let NegotiationController = (_dec = controller('#date', '#quantity', '#value'), _dec2 = debounce(), _dec(_class = (_class2 = class NegotiationController {
+            let NegotiationController = (_dec = controller('#date', '#quantity', '#value'), _dec2 = bindEvent('submit', '.form'), _dec3 = debounce(), _dec4 = bindEvent('click', '#btn-clear'), _dec5 = bindEvent('click', '#btn-import'), _dec6 = debounce(), _dec(_class = (_class2 = class NegotiationController {
 
                 constructor(_inputDate, _inputQuantity, _inputValue) {
 
@@ -132,7 +133,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
                 }
 
                 _createNegotiation() {
-                    return new Negotiation(DateConverter.toDate(this._inputDate.value), parseInt(this._inputQuantity.value));
+                    return new Negotiation(DateConverter.toDate(this._inputDate.value), parseInt(this._inputQuantity.value), parseFloat(this._inputValue.value));
                 }
 
                 _cleanForm() {
@@ -178,7 +179,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
                     })();
                 }
 
-            }, (_applyDecoratedDescriptor(_class2.prototype, 'importNegotiations', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'importNegotiations'), _class2.prototype)), _class2)) || _class);
+            }, (_applyDecoratedDescriptor(_class2.prototype, 'save', [_dec2, _dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'save'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'clear', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'clear'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'importNegotiations', [_dec5, _dec6], Object.getOwnPropertyDescriptor(_class2.prototype, 'importNegotiations'), _class2.prototype)), _class2)) || _class);
 
             _export('NegotiationController', NegotiationController);
         }

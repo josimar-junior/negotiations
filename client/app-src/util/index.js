@@ -7,3 +7,4 @@ export * from './ProxyFactory.js';
 export * from './decorators/Debounce.js';
 export * from './decorators/Controller.js';
 export * from './Required.js';
+export * from './decorators/BindEvent.js';
