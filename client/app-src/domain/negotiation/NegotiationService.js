@@ -9,21 +9,21 @@ export class NegotiantionService {
     }
 
     getWeekNegotiations() {
-        return this._httpService.get('negotiations/week')
+        return this._httpService.get('http://localhost:3000/negotiations/week')
             .then(datas =>
                 datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value))
                 , error => { throw new ApplicationException("Couldn't get week negotiations") })
     }
 
     getPreviousWeekNegotiations() {
-        return this._httpService.get('negotiations/previous')
+        return this._httpService.get('http://localhost:3000/negotiations/previous')
             .then(datas =>
                 datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value))
                 , error => { throw new ApplicationException("Couldn't get previous week negotiations") });
     }
 
     getDelayedWeekNegotiations() {
-        return this._httpService.get('negotiations/delayed')
+        return this._httpService.get('http://localhost:3000/negotiations/delayed')
             .then(datas =>
                 datas.map(object => new Negotiation(new Date(object.date), object.quantity, object.value))
                 , error => { throw new ApplicationException("Couldn't get delayed week negotiations") });
