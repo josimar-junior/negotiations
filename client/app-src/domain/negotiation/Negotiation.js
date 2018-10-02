@@ -1,6 +1,8 @@
+import {required} from '../../util/index.js';
+
 export class Negotiation {
 
-    constructor(_date, _quantity, _value) {
+    constructor(_date = required('date'), _quantity = required('quantity'), _value = required('value')) {
         Object.assign(this, {_quantity, _value});
         this._date = new Date(_date.getTime())
         Object.freeze(this);

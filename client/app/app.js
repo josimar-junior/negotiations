@@ -10,8 +10,6 @@ System.register(['./controllers/NegotiationController.js', './domain/index.js'],
         }],
         execute: function () {
 
-            console.log(new Date());
-
             const negotiation = new Negotiation(new Date(), 10, 30);
             const headers = new Headers();
             headers.set('Content-Type', 'application/json');

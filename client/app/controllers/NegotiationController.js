@@ -132,7 +132,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
                 }
 
                 _createNegotiation() {
-                    return new Negotiation(DateConverter.toDate(this._inputDate.value), parseInt(this._inputQuantity.value), parseFloat(this._inputValue.value));
+                    return new Negotiation(DateConverter.toDate(this._inputDate.value), parseInt(this._inputQuantity.value));
                 }
 
                 _cleanForm() {
