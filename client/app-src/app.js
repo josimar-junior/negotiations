@@ -23,7 +23,7 @@ const config = {
     body: JSON.stringify(negotiation)
 }
 
-fetch('http://localhost:3000/negotiations', config)
+fetch(`${SERVICE_URL}/negotiations`, config)
     .then(() => console.log('Data uploaded successfully'));
 
 const controller = new NegotiationController();
