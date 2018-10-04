@@ -1,4 +1,4 @@
-import { Negotiation } from './Negotiation.js';
+import { Negotiation } from './Negotiation';
 
 export class NegotiationDao {
 

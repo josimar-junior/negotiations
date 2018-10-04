@@ -5,8 +5,8 @@ import	'bootstrap/js/modal.js';
 
 import '../css/mycss.css';
 
-import { NegotiationController } from './controllers/NegotiationController.js';
-import { Negotiation } from './domain/index.js';
+import { NegotiationController } from './controllers/NegotiationController';
+import { Negotiation } from './domain';
 
 $('h1').on('click', () => alert('Was clicked'));
 

@@ -1,4 +1,3 @@
-import { Negotiation } from './../domain/negotiation/Negotiation.js';
 
 export class HttpService {
 
