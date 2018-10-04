@@ -2,7 +2,7 @@ import { HttpService } from '../../util/HttpService';
 import { Negotiation } from './Negotiation';
 import { ApplicationException } from '../../util/ApplicationException';
 
-export class NegotiantionService {
+export class NegotiationService {
 
     constructor() {
         this._httpService = new HttpService();

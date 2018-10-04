@@ -1,4 +1,4 @@
-import { Negotiations, NegotiantionService, Negotiation } from '../domain';
+import { Negotiations, Negotiation } from '../domain';
 import { NegotiationsView, MessageView, Message, DateConverter } from '../ui';
 import { getNegotiationDao, Bind, getExceptionMessage, debounce, controller, bindEvent } from '../util';
 
@@ -7,13 +7,11 @@ export class NegotiationController {
 
     constructor(_inputDate, _inputQuantity, _inputValue) {
 
-        Object.assign(this, {_inputDate, _inputQuantity, _inputValue});
+        Object.assign(this, { _inputDate, _inputQuantity, _inputValue });
 
         this._negotiations = new Bind(new Negotiations(), new NegotiationsView('#negotiations'), 'save', 'clear');
 
         this._message = new Bind(new Message(), new MessageView('#messageView'), 'text');
-
-        this._negotiationService = new NegotiantionService();
 
         this._init();
     }
@@ -76,7 +74,12 @@ export class NegotiationController {
     @debounce()
     async importNegotiations() {
         try {
-            const negotiations = await this._negotiationService.getNegotiationsForThePeriod();
+
+            const { NegotiationService } = await import('../domain/negotiation/NegotiationService');
+
+            const negotiationService = new NegotiationService();
+            
+            const negotiations = await negotiationService.getNegotiationsForThePeriod();
             negotiations.filter(newNegotiation => !this._negotiations.toArray().some(existingNegotiation =>
                 newNegotiation.equals(existingNegotiation)))
                 .forEach(negotiation => this._negotiations.save(negotiation));
