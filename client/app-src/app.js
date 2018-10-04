@@ -1,3 +1,8 @@
+import	'bootstrap/dist/css/bootstrap.css';
+import	'bootstrap/dist/css/bootstrap-theme.css';
+
+import '../css/mycss.css';
+
 import { NegotiationController } from './controllers/NegotiationController.js';
 import { Negotiation } from './domain/index.js';
 
