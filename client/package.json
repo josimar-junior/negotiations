@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jquery": "^3.2.1",
     "reflect-metadata": "^0.1.10"
   },
   "devDependencies": {
